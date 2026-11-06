@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+      h1{
+        font-weight:bold;
+        font-size: 100px;
+        text-align:center;
+        margin-bottom:90px; 
+        }
+       .search-container{
+        padding:10px 16px; 
+        display:flex;
+        align-items:center;
+        background-color:white;
+        border:1px solid;
+        border-radius:45px;
+        width:580px;
+        margin: 0 auto;
+        padding-top:15px;
+        padding-bottom:15px;
+       }
+      .search-icon{
+        color:#777;
+        font-size:16px;
+        margin-right:12px;
+        flex-shrink:0;
+      }
+       .search-input{
+        background-color:white;
+        cursor:pointer;
+        color:grey;
+        font-size:18px;
+        width:100%;
+        text-align:left;
+        border:none;
+        outline:none;
+        padding:5px 0px 5px 8px;
+        box-sizing:border-box; 
+       }
+       .button-container{
+        display:flex;
+        justify-content:center;
+        gap:30px;
+        margin-top:30px;
+       }
+       p1{
+        font-size:18px;
+       }
+       p2{
+        font-size:18px;
+       }
+       .blue-letter{
+        color:#4285F4;
+       }
+       .red-letter{
+        color:red;
+       }
+       .yellow-letter{
+        color:yellow;
+       }
+       .green-letter{
+        color:green;
+       }
+       .icon-group{
+        display:flex;
+        align-items:center;
+        gap:16px;
+        flex-shrink:0;
+        margin-left:12px;
+       }
+    </style>
+    <h1 class=custom-logo>
+      <span class="blue-letter">G</span>
+      <span class="red-letter">o</span>
+      <span class="yellow-letter">o</span>
+      <span class="blue-letter">g</span>
+      <span class="green-letter">l</span>
+      <span class="red-letter">e</span>
+      </h1>
+  </head>
+  <body>
+    <div class="search-container">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="search-input" placeholder="what is on your mind...">
+
+      <div class="icon-group">
+        <i class="fa-solid fa-microphone mic-icon"></i>
+        <i class="fa-solid fa-camera camera-icon"></i>
+      </div>
+      <!-- <button class="search btn">
+        <span class="btn text">what is on your mind today?</span>
+      </button> -->
+    </div>
+    <div class="button-container">
+       <p1>Google Search</p1>  
+       <p2>I'm feeling lucky</p2>
+       </div>
+  </body>
+</html>
