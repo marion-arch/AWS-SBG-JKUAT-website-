@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JKUAT AWS Student Builder Group</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0a1128;
+      --bg-surface: #0f1a36;
+      --card-bg: #152244;
+      --card-border: #1f315f;
+      --text-white: #ffffff;
+      --text-muted: #94a3b8;
+      --text-body: #cbd5e1;
+      --aws-orange: #ff9900;
+      --aws-orange-dark: #e66000;
+      --aws-cyan: #00a4e4;
+      --border-color: #1f315f;
+      --header-height: 76px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Fixed Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      z-index: 1000;
+      padding: 0 2rem;
+      background: rgba(10, 17, 40, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-container {
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.05rem;
+      z-index: 1002;
+    }
+
+    .custom-cloud-logo {
+      width: 36px;
+      height: 26px;
+      filter: drop-shadow(0 0 8px rgba(255, 153, 0, 0.4));
+      transition: transform 0.2s ease;
+    }
+
+    .logo-area:hover .custom-cloud-logo {
+      transform: scale(1.06);
+    }
+
+    nav.center-nav {
+      display: flex;
+      align-items: center;
+      gap: 2.2rem;
+    }
+
+    nav.center-nav a {
+      color: var(--text-white);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav.center-nav a:hover {
+      color: var(--aws-orange);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, #ff9900 0%, #e66000 100%);
+      color: #ffffff !important;
+      padding: 0.65rem 1.6rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 14px rgba(230, 96, 0, 0.35);
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(230, 96, 0, 0.45);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.6rem;
+      cursor: pointer;
+      z-index: 1002;
+      padding: 4px;
+    }
+
+    section {
+      scroll-margin-top: var(--header-height);
+    }
+
+    .section-container {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(2.3rem, 4.2vw, 3.4rem);
+      font-weight: 900;
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 3.5rem;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* 1. Hero Section */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: calc(var(--header-height) + 4rem) 1.5rem 6rem;
+      background-image: 
+        radial-gradient(circle at center, rgba(10, 17, 40, 0.75) 0%, rgba(10, 17, 40, 0.98) 85%),
+        url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2000&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.5rem 1.4rem;
+      border-radius: 9999px;
+      border: 1.5px solid var(--aws-orange);
+      background: rgba(15, 26, 54, 0.85);
+      color: var(--aws-orange);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5.2vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      max-width: 950px;
+      margin: 0 auto 1.25rem;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p.lead-desc {
+      font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff9900 0%, #e66000 100%);
+      color: #ffffff;
+      padding: 0.85rem 2.2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(230, 96, 0, 0.4);
+      transition: transform 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: rgba(15, 26, 54, 0.6);
+      border: 1.5px solid var(--aws-orange);
+      color: #ffffff;
+      padding: 0.85rem 2.2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+      transition: background 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 153, 0, 0.15);
+    }
+
+    /* 2. Mission Section */
+    .mission-section {
+      padding: 6rem 0;
+      background-color: var(--bg-surface);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .mission-container {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 4.5rem;
+      align-items: center;
+    }
+
+    .mission-text h2 {
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+      line-height: 1.15;
+    }
+
+    .mission-text p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-body);
+    }
+
+    .mission-image-wrapper {
+      border-radius: 24px;
+      border: 1px solid var(--card-border);
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      background: #111e3b;
+    }
+
+    .mission-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 3. Stats Section */
+    .stats-section {
+      padding: 5rem 0 4rem;
+      background-color: var(--bg-dark);
+    }
+
+    .stats-grid {
+      max-width: 1050px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 2.5rem 1.5rem;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(255, 153, 0, 0.12);
+      border: 1px solid rgba(255, 153, 0, 0.25);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .stat-number {
+      font-size: clamp(2.6rem, 3.8vw, 3.6rem);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* 4. Events Section */
+    .events-section {
+      padding: 6rem 0;
+      background-color: var(--bg-surface);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .events-group-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin: 2rem 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+    }
+
+    .events-group-title::before {
+      content: "";
+      width: 6px;
+      height: 22px;
+      background: var(--aws-orange);
+      border-radius: 3px;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .event-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 153, 0, 0.5);
+    }
+
+    .event-tag {
+      align-self: flex-start;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.25rem;
+    }
+
+    .tag-upcoming {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+
+    .tag-hosted {
+      background: rgba(148, 163, 184, 0.15);
+      color: #cbd5e1;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .event-card h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+    }
+
+    .event-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .event-meta {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1rem;
+    }
+
+    /* 5. Core Team Section */
+    .team-section {
+      padding: 6rem 0;
+      background-color: var(--bg-dark);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .team-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 2.5rem 1.75rem;
+      text-align: center;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 153, 0, 0.45);
+    }
+
+    .team-avatar-wrapper {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--aws-orange);
+      box-shadow: 0 0 20px rgba(255, 153, 0, 0.25);
+      background: #0f1a36;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .team-avatar-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .team-avatar-wrapper svg.placeholder-avatar {
+      width: 58%;
+      height: 58%;
+      fill: #94a3b8;
+    }
+
+    .team-card h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 0.35rem;
+    }
+
+    .team-role {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--aws-orange);
+      margin-bottom: 0.75rem;
+    }
+
+    .team-bio {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+    }
+
+    .team-socials {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .team-socials a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+
+    .team-socials a:hover {
+      color: var(--aws-orange);
+    }
+
+    /* 6. Join the Hub (Registration Form) */
+    .form-section {
+      padding: 6rem 0;
+      background-color: var(--bg-surface);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .form-wrapper {
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .form-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.75rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .form-card h2 {
+      color: var(--aws-orange);
+      font-size: 1.85rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-card p.subtitle {
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-bottom: -0.6rem;
+    }
+
+    input, select, textarea {
+      background: #0a1128;
+      border: 1px solid var(--border-color);
+      color: #ffffff;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--aws-orange);
+      box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.15);
+    }
+
+    select option {
+      background: #0a1128;
+      color: #ffffff;
+    }
+
+    button.submit-btn {
+      margin-top: 0.5rem;
+      background: linear-gradient(135deg, #ff9900 0%, #e66000 100%);
+      color: #0a1128;
+      font-size: 1.05rem;
+      font-weight: 800;
+      padding: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: filter 0.2s, transform 0.1s;
+    }
+
+    button.submit-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    #status-msg {
+      text-align: center;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    /* 7. Dedicated Contact Section */
+    .contact-section {
+      padding: 6rem 0;
+      background-color: var(--bg-dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: flex-start;
+    }
+
+    .contact-info-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .contact-info-card h3 {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .contact-info-card p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .contact-detail-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .contact-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 153, 0, 0.12);
+      border: 1px solid rgba(255, 153, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-row strong {
+      display: block;
+      color: #ffffff;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .contact-detail-row a, .contact-detail-row span {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-detail-row a:hover {
+      color: var(--aws-orange);
+    }
+
+    .contact-form-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 2.75rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .contact-form-card h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+    }
+
+    /* 8. Footer */
+    footer.site-footer {
+      background-color: #060b1b;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 5rem 0 4rem;
+      color: var(--text-muted);
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 3.5rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .footer-logo-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .footer-brand-title {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 320px;
+    }
+
+    .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-decoration: none;
+      transition: transform 0.2s ease, filter 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+      background-color: #152244;
+      border: 1px solid #1f315f;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.15);
+    }
+
+    .btn-wa:hover { background-color: #25d366; border-color: #25d366; }
+    .btn-in:hover { background-color: #0077b5; border-color: #0077b5; }
+    .btn-x:hover  { background-color: #000000; border-color: #555555; }
+    .btn-ig:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285aeb 90%); border-color: #d6249f; }
+    .btn-tk:hover { background-color: #000000; border-color: #fe2c55; }
+    .btn-yt:hover { background-color: #ff0000; border-color: #ff0000; }
+
+    .footer-col h3 {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .footer-col ul li a {
+      color: var(--text-body);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--aws-orange);
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: var(--text-body);
+    }
+
+    .footer-contact-item a {
+      color: var(--text-body);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-contact-item a:hover {
+      color: var(--aws-orange);
+    }
+
+    /* Floating Linktree Quick Action Button */
+    .floating-linktree {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 26, 54, 0.92);
+      color: var(--text-white);
+      border: 1.5px solid var(--aws-orange);
+      padding: 0.65rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 153, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .floating-linktree:hover {
+      transform: translateY(-3px);
+      background: var(--aws-orange);
+      color: #0a1128 !important;
+      box-shadow: 0 14px 30px rgba(255, 153, 0, 0.45);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1024px) {
+      .mission-container { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-container { grid-template-columns: 1fr; }
+      .footer-container { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 850px) {
+      header { padding: 0 1.25rem; }
+      .mobile-menu-btn { display: block; }
+      
+      nav.center-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        max-width: 320px;
+        height: 100vh;
+        background: #091024;
+        border-left: 1px solid var(--border-color);
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+        transition: right 0.3s ease;
+        z-index: 1001;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.7);
+      }
+
+      nav.center-nav.open {
+        right: 0;
+      }
+
+      nav.center-nav a {
+        font-size: 1.15rem;
+      }
+
+      .stats-grid { grid-template-columns: 1fr; }
+      .footer-container { grid-template-columns: 1fr; }
+      .contact-form-card, .form-card { padding: 2rem 1.5rem; }
+      .team-grid { grid-template-columns: 1fr; }
+      .floating-linktree { bottom: 16px; right: 16px; padding: 0.55rem 1rem; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#hero" class="logo-area">
+        <svg class="custom-cloud-logo" viewBox="0 0 52 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 22C11 22 7 20 7 15C7 10 11 8 16 8C17.5 4 21.5 2 26.5 2C32 2 36 5.5 37.5 10C42 10.5 45.5 13.5 45.5 18C45.5 22.5 42 25.5 37 25.5" 
+                stroke="#FF9900" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M38 14C41 14 45 16 45 21C45 26 41 28 36 28C34.5 32 30.5 34 25.5 34C20 34 16 30.5 14.5 26C10 25.5 6.5 22.5 6.5 18C6.5 13.5 10 10.5 15 10.5" 
+                stroke="#00A4E4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>JKUAT AWS Student Builder Group</span>
+      </a>
+
+      <nav class="center-nav" id="mobileNav">
+        <a href="#hero" onclick="closeNav()">Home</a>
+        <a href="#mission" onclick="closeNav()">About</a>
+        <a href="#events" onclick="closeNav()">Events</a>
+        <a href="#team" onclick="closeNav()">Team</a>
+        <a href="#contact" onclick="closeNav()">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#register" class="nav-btn">Join the Hub</a>
+        <button class="mobile-menu-btn" id="menuBtn" aria-label="Toggle navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1. Home / Hero -->
+  <section class="hero" id="hero">
+    <a href="#register" class="badge-pill">
+      JKUAT AWS Student Builder Group <span>↗</span>
+    </a>
+
+    <h1>Empowering JKUAT Builders Through Cloud Computing</h1>
+
+    <p class="lead-desc">
+      A student-led developer hub at Jomo Kenyatta University of Agriculture and Technology. We build hands-on cloud architectures, develop production-ready projects, and master modern AWS services together.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#register" class="btn-primary">Join the Community</a>
+      <a href="#events" class="btn-outline">Explore Events</a>
+      <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer" class="btn-outline">Linktree ↗</a>
+    </div>
+  </section>
+
+  <!-- 2. About / Mission -->
+  <section class="mission-section" id="mission">
+    <div class="section-container">
+      <div class="mission-container">
+        <div class="mission-text">
+          <h2>Our Mission</h2>
+          <p>
+            We bridge the gap between academic computing theory and cloud industry practice. By organizing collaborative coding bootcamps, workshops, and architecture deep dives, we ensure every student at JKUAT can build scalable, secure, and production-ready applications.
+          </p>
+        </div>
+
+        <div class="mission-image-wrapper">
+          <img 
+            src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80" 
+            alt="JKUAT AWS Student Builders Collaborating" 
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Stats Section -->
+  <section class="stats-section">
+    <div class="section-container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-number">6</div>
+          <div class="stat-label">Core Team Leads</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Workshops & Events</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚙️</div>
+          <div class="stat-number">8+</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Events Section (Upcoming & Hosted) -->
+  <section class="events-section" id="events">
+    <div class="section-container">
+      <h2 class="section-title">Events & Workshops</h2>
+      <p class="section-subtitle">Stay up to date with our upcoming cloud bootcamps and review our past sessions.</p>
+
+      <h3 class="events-group-title">Upcoming Events</h3>
+      <div class="events-grid">
+        <div class="event-card">
+          <div>
+            <span class="event-tag tag-upcoming">Upcoming</span>
+            <h3>Serverless Full-Stack on AWS</h3>
+            <p>Hands-on session building serverless microservices with AWS Lambda, API Gateway, and DynamoDB.</p>
+          </div>
+          <div class="event-meta">
+            <span>📍 Computer Lab / Virtual</span>
+            <span>📅 To Be Announced</span>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div>
+            <span class="event-tag tag-upcoming">Upcoming</span>
+            <h3>Cloud Architecture & Security 101</h3>
+            <p>Understanding VPCs, IAM policies, and cloud cost management for student developer projects.</p>
+          </div>
+          <div class="event-meta">
+            <span>📍 JKUAT Main Campus</span>
+            <span>📅 Upcoming Semester Session</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="events-group-title" style="margin-top: 3.5rem;">Hosted Events</h3>
+      <div class="events-grid">
+        <div class="event-card">
+          <div>
+            <span class="event-tag tag-hosted">Hosted</span>
+            <h3>AWS Cloud Onboarding Day</h3>
+            <p>Introduction to the AWS Student Builder Group community, cloud infrastructure fundamentals, and setting up free-tier environments.</p>
+          </div>
+          <div class="event-meta">
+            <span>📍 JKUAT Juja Campus</span>
+            <span>📅 Completed</span>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div>
+            <span class="event-tag tag-hosted">Hosted</span>
+            <h3>Deploying Modern Web Apps</h3>
+            <p>A practical workshop on CI/CD pipelines, static asset hosting via S3 & CloudFront, and custom domain setup.</p>
+          </div>
+          <div class="event-meta">
+            <span>📍 Engineering Complex</span>
+            <span>📅 Completed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Core Team Section -->
+  <section class="team-section" id="team">
+    <div class="section-container">
+      <h2 class="section-title">Core Team</h2>
+      <p class="section-subtitle">Meet the student leads organizing workshops, securing setups, and running club operations. All team members actively emcee sessions, run icebreakers, and keep the room's energy high.</p>
+
+      <div class="team-grid">
+        <!-- 1. Leader / Events Director (Jude Hunja) -->
+        <div class="team-card">
+          <div class="team-avatar-wrapper">
+            <img src="images/jude-lead.jpg" alt="Jude Hunja - Student Group Leader" />
+          </div>
+          <h3>Jude Hunja</h3>
+          <p class="team-role">Leader & Events Director</p>
+          <p class="team-bio">Reaches out to expert speakers, ensures workshops occur regularly, and coordinates with media to keep community events engaging.</p>
+          <div class="team-socials">
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://Judhunja" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <!-- 2. Tech Lead 1: Cloud & Workshops (Cush) -->
+        <div class="team-card">
+          <div class="team-avatar-wrapper">
+            <img src="images/cush-techlead.jpg" alt="Cush - Tech Lead" style="object-position: center 20%;" />
+          </div>
+          <h3>Cush</h3>
+          <p class="team-role">Workshops & Cloud Content</p>
+          <p class="team-bio">Leads hands-on workshops, curates cloud curriculum, and actively helps students build real-world architectures during labs.</p>
+          <div class="team-socials">
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://github.com/enumakilinzvait" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <!-- 3. Tech Lead 2: Web & Online Resources (Marion Kemunto) -->
+        <div class="team-card">
+          <div class="team-avatar-wrapper">
+            <svg class="placeholder-avatar" viewBox="0 0 24 24">
+              <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+            </svg>
+          </div>
+          <h3>Marion Kemunto</h3>
+          <p class="team-role">Web & Online Resources</p>
+          <p class="team-bio">Maintains the community website, manages developer resource portals, and provides live technical support during build sessions.</p>
+          <div class="team-socials">
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://github.com/marion-arch" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <!-- 4. Logistics Lead 1: Venues & Setups (Zawadi Tamara) -->
+        <div class="team-card">
+          <div class="team-avatar-wrapper">
+            <img src="images/zawadi-eventslead.jpg" alt="Zawadi Tamara - Logistics Lead" />
+          </div>
+          <h3>Zawadi Tamara</h3>
+          <p class="team-role">Venues & Physical Setups</p>
+          <p class="team-bio">Secures campus lecture halls and computer labs, manages audio-visual recording gear, and coordinates stream broadcasting.</p>
+          <div class="team-socials">
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://github.com/TamaraZawadi" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <!-- 5. Logistics Lead 2: Programs & Flow (Lukas Enoch) -->
+        <div class="team-card">
+          <div class="team-avatar-wrapper">
+            <svg class="placeholder-avatar" viewBox="0 0 24 24">
+              <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+            </svg>
+          </div>
+          <h3>Lukas Enoch</h3>
+          <p class="team-role">Programs & Event Flow</p>
+          <p class="team-bio">Designs detailed meeting agendas, coordinates physical and virtual attendee onboarding, and ensures all sessions run smoothly.</p>
+          <div class="team-socials">
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://github.com/lukasenochchengo29-cell" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <!-- 6. Marketing & Design Lead (Caroline Mueni) -->
+        <div class="team-card">
+          <div class="team-avatar-wrapper">
+            <svg class="placeholder-avatar" viewBox="0 0 24 24">
+              <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+            </svg>
+          </div>
+          <h3>Caroline Mueni</h3>
+          <p class="team-role">Socials, Flyers & Media</p>
+          <p class="team-bio">Designs promotional flyers, drives cross-platform social announcements, and publishes post-event recordings across all channels.</p>
+          <div class="team-socials">
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://github.com/MueniCaroline" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Join the Hub Registration Form (Clean Inputs & Pattern Validation) -->
+  <section class="form-section" id="register">
+    <div class="section-container">
+      <div class="form-wrapper">
+        <div class="form-card">
+          <h2>Join the Hub</h2>
+          <p class="subtitle">Complete your details to register with the JKUAT AWS Student Builder Group.</p>
+
+          <form id="signup-form" autocomplete="off">
+            <label for="full_name">Full Name *</label>
+            <input 
+              type="text" 
+              id="full_name" 
+              pattern="^[A-Za-z]+(\s+[A-Za-z]+)+$"
+              title="Please enter your full first and last name"
+              autocomplete="off" 
+              required 
+            />
+
+            <label for="email">Email Address *</label>
+            <input 
+              type="email" 
+              id="email" 
+              pattern="^[a-zA-Z0-9._%+-]+@students\.jkuat\.ac\.ke$"
+              title="Please use your official JKUAT student email address (@students.jkuat.ac.ke)"
+              autocomplete="off" 
+              required 
+            />
+
+            <label for="phone">Phone Number *</label>
+            <input 
+              type="tel" 
+              id="phone" 
+              pattern="^(?:\+254|0)[17]\d{8}$"
+              title="Please enter a valid Kenyan phone number (e.g. 0712345678 or +254712345678)"
+              autocomplete="off" 
+              required 
+            />
+
+            <label for="course">Course of Study *</label>
+            <input 
+              type="text" 
+              id="course" 
+              minlength="3"
+              autocomplete="off" 
+              required 
+            />
+
+            <label for="year_of_study">Year of Study *</label>
+            <select id="year_of_study" autocomplete="off" required>
+              <option value="" disabled selected></option>
+              <option value="Year 1">Year 1</option>
+              <option value="Year 2">Year 2</option>
+              <option value="Year 3">Year 3</option>
+              <option value="Year 4">Year 4</option>
+              <option value="Year 5">Year 5</option>
+            </select>
+
+            <label for="reason">Why do you want to join?</label>
+            <textarea id="reason" rows="3" autocomplete="off"></textarea>
+
+            <button type="submit" id="submit-btn" class="submit-btn">Submit Registration</button>
+          </form>
+
+          <p id="status-msg"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Dedicated Contact Section (Connected to Formspree) -->
+  <section class="contact-section" id="contact">
+    <div class="section-container">
+      <div class="contact-container">
+        <div class="contact-info-card">
+          <h3>Get in Touch</h3>
+          <p>Have questions about joining, speaking at a session, partnering on a project, or general inquiries? Reach out to the student leads directly.</p>
+
+          <div class="contact-detail-row">
+            <div class="contact-icon-box">📍</div>
+            <div>
+              <strong>Campus Location</strong>
+              <span>JKUAT Main Campus, Juja, Kenya</span>
+            </div>
+          </div>
+
+          <div class="contact-detail-row">
+            <div class="contact-icon-box">✉️</div>
+            <div>
+              <strong>Email Us</strong>
+              <a href="mailto:awssbgjkuat@gmail.com">awssbgjkuat@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="contact-detail-row">
+            <div class="contact-icon-box">🌳</div>
+            <div>
+              <strong>Community Hub</strong>
+              <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer">linktr.ee/awssbgjkuat ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-card">
+          <h3>Send us a Quick Message</h3>
+          <form action="https://formspree.io/f/mdeejrod" method="POST" autocomplete="off">
+            <label for="c_name">Your Name</label>
+            <input type="text" id="c_name" name="name" autocomplete="off" required />
+
+            <label for="c_email">Your Email</label>
+            <input type="email" id="c_email" name="email" autocomplete="off" required />
+
+            <label for="c_message">Message</label>
+            <textarea id="c_message" name="message" rows="4" autocomplete="off" required></textarea>
+
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Footer -->
+  <footer class="site-footer">
+    <div class="section-container">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <div class="footer-logo-header">
+            <svg class="custom-cloud-logo" viewBox="0 0 52 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 22px;">
+              <path d="M14 22C11 22 7 20 7 15C7 10 11 8 16 8C17.5 4 21.5 2 26.5 2C32 2 36 5.5 37.5 10C42 10.5 45.5 13.5 45.5 18C45.5 22.5 42 25.5 37 25.5" 
+                    stroke="#FF9900" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M38 14C41 14 45 16 45 21C45 26 41 28 36 28C34.5 32 30.5 34 25.5 34C20 34 16 30.5 14.5 26C10 25.5 6.5 22.5 6.5 18C6.5 13.5 10 10.5 15 10.5" 
+                    stroke="#00A4E4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>AWS SBG</span>
+          </div>
+
+          <div class="footer-brand-title">AWS SBG</div>
+          <p>Empowering students through cloud computing education and collaborative innovation.</p>
+
+          <!-- SVG Social Media Icons (WhatsApp, LinkedIn, X, Instagram, TikTok, YouTube) -->
+          <div class="social-icons">
+            <!-- WhatsApp -->
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer" class="social-btn btn-wa" aria-label="WhatsApp Community">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.979-.276-.1-.476-.15-.676.15s-.777.979-.952 1.179-.351.226-.652.076c-.301-.151-1.27-.468-2.419-1.493-.894-.798-1.498-1.784-1.674-2.085-.176-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.176.2-.301.3-.501.1-.2.05-.376-.025-.527s-.676-1.629-.927-2.23c-.244-.585-.493-.506-.677-.515-.175-.009-.376-.01-.577-.01s-.527.076-.803.376c-.276.301-1.053 1.028-1.053 2.507s1.078 2.908 1.229 3.109c.15.2 2.122 3.24 5.141 4.544.718.31 1.279.496 1.716.635.723.23 1.38.198 1.9-.12.58-.354 1.78-1.073 2.031-1.755.251-.682.251-1.267.176-1.393-.075-.126-.276-.201-.577-.352zM12.042 22a9.92 9.92 0 0 1-5.06-1.385l-.363-.216-3.757.985 1.003-3.662-.236-.376A9.923 9.923 0 0 1 2.08 12c0-5.502 4.472-9.975 9.967-9.975 2.664 0 5.168 1.038 7.051 2.923a9.917 9.917 0 0 1 2.917 7.052c0 5.503-4.473 9.975-9.973 9.975zm0-21.92C5.97 0 .997 4.974.997 12c0 2.25.59 4.364 1.622 6.196L.8 24l5.989-1.572A11.94 11.94 0 0 0 12.042 24c6.073 0 11.047-4.974 11.047-12 0-3.21-1.25-6.226-3.52-8.497A11.968 11.968 0 0 0 12.042.08z"/>
+              </svg>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer" class="social-btn btn-in" aria-label="LinkedIn">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+
+            <!-- X (Twitter) -->
+            <a href="https://x.com/AWS_SBG_JKUAT" target="_blank" rel="noopener noreferrer" class="social-btn btn-x" aria-label="X @AWS_SBG_JKUAT">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer" class="social-btn btn-ig" aria-label="Instagram">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer" class="social-btn btn-tk" aria-label="TikTok">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.86.11V9.4a6.33 6.33 0 0 0-.86-.06 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.58a8.28 8.28 0 0 0 4.84 1.56V6.69h-1.07z"/>
+              </svg>
+            </a>
+
+            <!-- YouTube -->
+            <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer" class="social-btn btn-yt" aria-label="YouTube Channel">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Community</h3>
+          <ul>
+            <li><a href="#mission">About Us</a></li>
+            <li><a href="#register">Join the Club</a></li>
+            <li><a href="#events">Events & Workshops</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer">All Community Links (Linktree) ↗</a></li>
+            <li><a href="https://aws.amazon.com/education/awseducate/" target="_blank" rel="noopener noreferrer">AWS Educate</a></li>
+            <li><a href="https://aws.amazon.com/free/" target="_blank" rel="noopener noreferrer">AWS Free Tier</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Contact Info</h3>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <span>JKUAT Main Campus, Juja, Kenya</span>
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span>
+            <a href="mailto:awssbgjkuat@gmail.com">awssbgjkuat@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Linktree Quick Action Button -->
+  <a href="https://linktr.ee/awssbgjkuat" target="_blank" rel="noopener noreferrer" class="floating-linktree">
+    <span>🌳</span> Quick Hub Links ↗
+  </a>
+
+  <!-- Supabase Library & Form Handler -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Navigation toggle for mobile
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    menuBtn.addEventListener('click', () => {
+      mobileNav.classList.toggle('open');
+    });
+
+    function closeNav() {
+      mobileNav.classList.remove('open');
+    }
+
+    // Supabase Configuration
+    const SUPABASE_URL = 'https://dkzttmeqhwumreehswyq.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_wd8rN-1gYLze7fKdIcNb_g_lYiR0_JZ';
+
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const signupForm = document.getElementById('signup-form');
+    const statusMsg = document.getElementById('status-msg');
+    const submitBtn = document.getElementById('submit-btn');
+
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Submitting...';
+      statusMsg.innerText = '';
+
+      const full_name = document.getElementById('full_name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const course = document.getElementById('course').value.trim();
+      const year_of_study = document.getElementById('year_of_study').value;
+      const reason = document.getElementById('reason').value.trim();
+
+      const { data, error } = await supabaseClient
+        .from('signups')
+        .insert([
+          {
+            full_name: full_name,
+            email: email,
+            phone: phone,
+            course: course,
+            year_of_study: year_of_study,
+            reason: reason
+          }
+        ]);
+
+      if (error) {
+        console.error('Submission error:', error);
+        statusMsg.style.color = '#ef4444';
+        statusMsg.innerText = 'Error submitting: ' + error.message;
+      } else {
+        statusMsg.style.color = '#22c55e';
+        statusMsg.innerText = 'Success! Welcome to the group.';
+        signupForm.reset();
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Submit Registration';
+    });
+  </script>
+</body>
+</html>
